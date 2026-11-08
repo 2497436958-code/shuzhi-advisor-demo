@@ -165,6 +165,52 @@
   text-wrap: balance;
 }
 
+/* AI 技术构造：亮点页的静态入口，具体结果在报告页按字段渐进显示。 */
+.ai-construction {
+  max-width: 1120px;
+  margin: clamp(56px, 8vw, 104px) auto 0;
+  padding: 0 var(--gutter) clamp(24px, 4vw, 56px);
+}
+.ai-construction-head { max-width: 680px; }
+.ai-construction-head h2 {
+  margin: 0 0 14px;
+  font-size: clamp(24px, 3vw, 38px);
+  line-height: 1.2;
+  color: var(--ink);
+}
+.ai-construction-head p:last-child { color: var(--ink-3); line-height: 1.8; }
+.ai-construction-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 28px;
+}
+.ai-construction-grid article {
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  background: var(--card);
+  padding: 18px;
+}
+.ai-construction-grid span {
+  display: block;
+  color: var(--brass);
+  font: 11px var(--font-mono);
+  letter-spacing: .08em;
+  margin-bottom: 12px;
+}
+.ai-construction-grid strong { display: block; color: var(--ink); font-size: 15px; }
+.ai-construction-grid p { margin: 8px 0 0; color: var(--ink-3); font-size: 13px; line-height: 1.7; }
+
+.ai-visibility-intro { max-width: 70ch; color: var(--ink-3); font-size: 13px; line-height: 1.75; }
+.ai-visibility-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.ai-visibility-card { border: 1px solid var(--line); border-radius: var(--r-3); background: var(--card); padding: 16px; min-width: 0; }
+.ai-visibility-label, .ai-visibility-detail, .ai-visibility-note { display: block; }
+.ai-visibility-label { color: var(--brass); font: 11px var(--font-mono); letter-spacing: .06em; }
+.ai-visibility-value { display: block; margin-top: 8px; color: var(--ink); font-size: 17px; line-height: 1.4; overflow-wrap: anywhere; }
+.ai-visibility-detail { margin-top: 8px; color: var(--ink-2); font-size: 12.5px; line-height: 1.55; }
+.ai-visibility-note { margin-top: 6px; color: var(--ink-3); font-size: 12px; line-height: 1.55; }
+.ai-visibility-footnote { margin: 12px 0 0; color: var(--ink-4); font-size: 12px; }
+
 /* ---------- 窄屏 ---------- */
 @media (max-width: 720px) {
   .page-report main {
@@ -218,4 +264,7 @@
     border-radius: 14px 14px 0 0;
     padding: 32px 20px 24px;
   }
+
+  .ai-construction-grid,
+  .ai-visibility-grid { grid-template-columns: 1fr; }
 }

@@ -1539,6 +1539,7 @@
         "target_items": [
           4
         ],
+        "level_gain": 1.0,
         "cost_range": [
           25.0,
           70.0
@@ -1637,6 +1638,7 @@
           10,
           11
         ],
+        "level_gain": 1.0,
         "cost_range": [
           10.0,
           30.0
@@ -1743,6 +1745,7 @@
           3,
           4
         ],
+        "level_gain": 1.0,
         "cost_range": [
           30.0,
           90.0
@@ -1857,6 +1860,7 @@
           5,
           4
         ],
+        "level_gain": 1.0,
         "cost_range": [
           60.0,
           180.0
@@ -1962,6 +1966,7 @@
           4,
           5
         ],
+        "level_gain": 1.0,
         "cost_range": [
           25.0,
           70.0
@@ -2067,6 +2072,7 @@
           6,
           7
         ],
+        "level_gain": 1.0,
         "cost_range": [
           15.0,
           45.0
@@ -2547,7 +2553,418 @@
       "criteria_source": "工信厅企业〔2024〕56 号 附件（一）数字化基础、管理及成效评测表",
       "scenario_source": "工信厅企业〔2024〕56 号附件（二）",
       "document": "工信厅企业〔2024〕56 号",
-      "engine": "advisor.web.api / advisor.scoring.engine / advisor.scoring.roi / advisor.patterns.antipatterns"
+      "engine": "advisor.web.api / advisor.scoring.engine / advisor.scoring.roi / advisor.patterns.antipatterns / advisor.decision.extensions"
+    },
+    "robust_priority": {
+      "scenarios": {
+        "conservative": [
+          {
+            "id": "P-MKT",
+            "score": 0.599,
+            "rank": 1
+          },
+          {
+            "id": "P-PDES",
+            "score": 0.4818378378,
+            "rank": 2
+          },
+          {
+            "id": "P-MES",
+            "score": 0.4708445946,
+            "rank": 3
+          },
+          {
+            "id": "P-NET",
+            "score": 0.4418040541,
+            "rank": 4
+          },
+          {
+            "id": "P-PLAN",
+            "score": 0.3484797297,
+            "rank": 5
+          },
+          {
+            "id": "P-SEC",
+            "score": 0.32975,
+            "rank": 6
+          }
+        ],
+        "base": [
+          {
+            "id": "P-MKT",
+            "score": 0.6975,
+            "rank": 1
+          },
+          {
+            "id": "P-PDES",
+            "score": 0.5412837838,
+            "rank": 2
+          },
+          {
+            "id": "P-MES",
+            "score": 0.5411261261,
+            "rank": 3
+          },
+          {
+            "id": "P-NET",
+            "score": 0.4904054054,
+            "rank": 4
+          },
+          {
+            "id": "P-PLAN",
+            "score": 0.387972973,
+            "rank": 5
+          },
+          {
+            "id": "P-SEC",
+            "score": 0.365,
+            "rank": 6
+          }
+        ],
+        "optimistic": [
+          {
+            "id": "P-MKT",
+            "score": 0.76475,
+            "rank": 1
+          },
+          {
+            "id": "P-MES",
+            "score": 0.588545045,
+            "rank": 2
+          },
+          {
+            "id": "P-PDES",
+            "score": 0.5851013514,
+            "rank": 3
+          },
+          {
+            "id": "P-NET",
+            "score": 0.5272162162,
+            "rank": 4
+          },
+          {
+            "id": "P-PLAN",
+            "score": 0.4224189189,
+            "rank": 5
+          },
+          {
+            "id": "P-SEC",
+            "score": 0.3965,
+            "rank": 6
+          }
+        ]
+      },
+      "weights": {
+        "bottleneck_value": 0.2,
+        "level_gain": 0.15,
+        "expected_benefit": 0.2,
+        "evidence_confidence": 0.15,
+        "readiness": 0.15,
+        "cost_burden": 0.1,
+        "implementation_risk": 0.05
+      },
+      "normalization": {
+        "method": "min-max",
+        "beneficial": [
+          "bottleneck_value",
+          "evidence_confidence",
+          "expected_benefit",
+          "level_gain",
+          "readiness"
+        ],
+        "cost_or_risk_reversed": [
+          "cost_burden",
+          "implementation_risk"
+        ]
+      },
+      "stability": {
+        "stable": false,
+        "agreement": 0.977778,
+        "explanation": "情景间存在排序变化，应补充证据或开展人工审查"
+      },
+      "disclaimer": "这是相对优先级分数，不是经过报价或财务核验的 ROI。"
+    },
+    "evidence_graph": {
+      "anchor": "root:PATH-007",
+      "node_count": 10,
+      "edge_count": 17,
+      "nodes": [
+        {
+          "id": "criterion:5",
+          "type": "criterion",
+          "label": "采集项 5",
+          "attributes": {
+            "item_id": 5
+          }
+        },
+        {
+          "id": "criterion:4",
+          "type": "criterion",
+          "label": "采集项 4",
+          "attributes": {
+            "item_id": 4
+          }
+        },
+        {
+          "id": "scenario:S04",
+          "type": "scenario",
+          "label": "S04",
+          "attributes": {
+            "scenario_id": "S04"
+          }
+        },
+        {
+          "id": "symptom:PATH-007",
+          "type": "symptom",
+          "label": "售后的问题记录在维修工单里，研发从来不看",
+          "attributes": {
+            "path_id": "PATH-007"
+          }
+        },
+        {
+          "id": "root:PATH-007",
+          "type": "root_cause",
+          "label": "售后数据与研发、质量不在一个系统，故障模式没有回流成设计输入，同类问题反复出现——缺的是售后数据到研发的闭环，不是加报表",
+          "attributes": {
+            "path_id": "PATH-007"
+          }
+        },
+        {
+          "id": "scenario:S07",
+          "type": "scenario",
+          "label": "S07",
+          "attributes": {
+            "scenario_id": "S07"
+          }
+        },
+        {
+          "id": "action:PATH-007:1",
+          "type": "action",
+          "label": "售后工单结构化，故障代码与产品型号绑定",
+          "attributes": {
+            "path_id": "PATH-007"
+          }
+        },
+        {
+          "id": "action:PATH-007:2",
+          "type": "action",
+          "label": "质量与研发共享故障库，纳入设计评审",
+          "attributes": {
+            "path_id": "PATH-007"
+          }
+        },
+        {
+          "id": "case:CASE-1156",
+          "type": "case",
+          "label": "装备制造——运城市盐湖水泵特色专业镇依托水泵行业工业互联网平台，带动集群中小企业数字化转型",
+          "attributes": {
+            "case_id": "CASE-1156"
+          }
+        },
+        {
+          "id": "case:CASE-1103",
+          "type": "case",
+          "label": "装备制造——山西太重工程机械有限公司应用制造运营管理平台实现生产要素的整合与高效联动",
+          "attributes": {
+            "case_id": "CASE-1103"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": "symptom:PATH-007",
+          "target": "root:PATH-007",
+          "relation": "caused_by",
+          "attributes": {}
+        },
+        {
+          "source": "criterion:4",
+          "target": "symptom:PATH-007",
+          "relation": "indicates",
+          "attributes": {}
+        },
+        {
+          "source": "criterion:5",
+          "target": "symptom:PATH-007",
+          "relation": "indicates",
+          "attributes": {}
+        },
+        {
+          "source": "scenario:S04",
+          "target": "symptom:PATH-007",
+          "relation": "observed_as",
+          "attributes": {}
+        },
+        {
+          "source": "scenario:S07",
+          "target": "symptom:PATH-007",
+          "relation": "observed_as",
+          "attributes": {}
+        },
+        {
+          "source": "root:PATH-007",
+          "target": "action:PATH-007:1",
+          "relation": "addressed_by",
+          "attributes": {}
+        },
+        {
+          "source": "action:PATH-007:1",
+          "target": "scenario:S04",
+          "relation": "targets",
+          "attributes": {}
+        },
+        {
+          "source": "root:PATH-007",
+          "target": "action:PATH-007:2",
+          "relation": "addressed_by",
+          "attributes": {}
+        },
+        {
+          "source": "action:PATH-007:2",
+          "target": "scenario:S07",
+          "relation": "targets",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1156",
+          "target": "action:PATH-007:1",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1156",
+          "target": "action:PATH-007:2",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1156",
+          "target": "scenario:S04",
+          "relation": "covers",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1156",
+          "target": "scenario:S07",
+          "relation": "covers",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1103",
+          "target": "action:PATH-007:1",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1103",
+          "target": "action:PATH-007:2",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1103",
+          "target": "scenario:S04",
+          "relation": "covers",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1103",
+          "target": "scenario:S07",
+          "relation": "covers",
+          "attributes": {}
+        }
+      ]
+    },
+    "deliberation": {
+      "requires_deliberation": true,
+      "round_count": 1,
+      "trigger_reasons": [
+        "证据不足",
+        "排序不稳定"
+      ],
+      "role_outputs": {
+        "diagnosis": {
+          "recommendation": "售后工单结构化，故障代码与产品型号绑定（目标场景 S07「质量管理」）",
+          "rationale": "数字化投入占比不低，但能力底座没有同步建起来",
+          "evidence_ids": []
+        },
+        "evidence": {
+          "complete": false,
+          "evidence_ids": [
+            "本项目构造的判据 AP4",
+            "采集项 11",
+            "案例 CASE-129",
+            "场景 S01",
+            "场景 S03",
+            "场景 S06",
+            "场景 S07",
+            "等级判定",
+            "采集项 4",
+            "采集项 5",
+            "采集项 1",
+            "采集项 6",
+            "采集项 7"
+          ],
+          "gaps": [
+            "成本仍为估算，缺少报价或审计依据",
+            "收益证据存在未充分支持项"
+          ]
+        },
+        "economics": {
+          "recommendation": "",
+          "ranking": [
+            "P-MKT",
+            "P-PDES",
+            "P-MES",
+            "P-NET",
+            "P-PLAN",
+            "P-SEC"
+          ],
+          "stable": false,
+          "flip_rate": 0.167
+        },
+        "adjudicator": {
+          "recommendation": "暂缓裁决",
+          "proposed_recommendation": "售后工单结构化，故障代码与产品型号绑定（目标场景 S07「质量管理」）",
+          "status": "需要补证据"
+        }
+      },
+      "consensus": {
+        "status": "需要补证据",
+        "basis": [
+          "诊断输入",
+          "证据缺口",
+          "经济性排序",
+          "排序稳定性待复核"
+        ],
+        "proposed_recommendation": "售后工单结构化，故障代码与产品型号绑定（目标场景 S07「质量管理」）"
+      },
+      "disagreements": [
+        "evidence",
+        "economics"
+      ],
+      "evidence_gaps": [
+        "成本仍为估算，缺少报价或审计依据",
+        "收益证据存在未充分支持项"
+      ],
+      "final_decision": {
+        "status": "需要补证据",
+        "recommendation": "暂缓裁决",
+        "proposed_recommendation": "售后工单结构化，故障代码与产品型号绑定（目标场景 S07「质量管理」）",
+        "ranking": [
+          "P-MKT",
+          "P-PDES",
+          "P-MES",
+          "P-NET",
+          "P-PLAN",
+          "P-SEC"
+        ],
+        "evidence_complete": false,
+        "reasons": [
+          "证据不足",
+          "排序不稳定"
+        ]
+      }
     }
   }
 }

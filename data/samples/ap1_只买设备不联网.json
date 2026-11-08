@@ -1392,6 +1392,7 @@
           10,
           11
         ],
+        "level_gain": 1.0,
         "cost_range": [
           10.0,
           30.0
@@ -1498,6 +1499,7 @@
           3,
           4
         ],
+        "level_gain": 1.0,
         "cost_range": [
           30.0,
           90.0
@@ -1611,6 +1613,7 @@
         "target_items": [
           4
         ],
+        "level_gain": 1.0,
         "cost_range": [
           20.0,
           60.0
@@ -1707,6 +1710,7 @@
           6,
           7
         ],
+        "level_gain": 1.0,
         "cost_range": [
           15.0,
           45.0
@@ -2157,7 +2161,379 @@
       "criteria_source": "工信厅企业〔2024〕56 号 附件（一）数字化基础、管理及成效评测表",
       "scenario_source": "工信厅企业〔2024〕56 号附件（二）",
       "document": "工信厅企业〔2024〕56 号",
-      "engine": "advisor.web.api / advisor.scoring.engine / advisor.scoring.roi / advisor.patterns.antipatterns"
+      "engine": "advisor.web.api / advisor.scoring.engine / advisor.scoring.roi / advisor.patterns.antipatterns / advisor.decision.extensions"
+    },
+    "robust_priority": {
+      "scenarios": {
+        "conservative": [
+          {
+            "id": "P-ENERGY",
+            "score": 0.57875,
+            "rank": 1
+          },
+          {
+            "id": "P-PLAN",
+            "score": 0.3898138298,
+            "rank": 2
+          },
+          {
+            "id": "P-NET",
+            "score": 0.3375265957,
+            "rank": 3
+          },
+          {
+            "id": "P-SEC",
+            "score": 0.31625,
+            "rank": 4
+          }
+        ],
+        "base": [
+          {
+            "id": "P-ENERGY",
+            "score": 0.675,
+            "rank": 1
+          },
+          {
+            "id": "P-PLAN",
+            "score": 0.4430851064,
+            "rank": 2
+          },
+          {
+            "id": "P-NET",
+            "score": 0.3783687943,
+            "rank": 3
+          },
+          {
+            "id": "P-SEC",
+            "score": 0.35,
+            "rank": 4
+          }
+        ],
+        "optimistic": [
+          {
+            "id": "P-ENERGY",
+            "score": 0.74,
+            "rank": 1
+          },
+          {
+            "id": "P-PLAN",
+            "score": 0.4857978723,
+            "rank": 2
+          },
+          {
+            "id": "P-NET",
+            "score": 0.4088741135,
+            "rank": 3
+          },
+          {
+            "id": "P-SEC",
+            "score": 0.38,
+            "rank": 4
+          }
+        ]
+      },
+      "weights": {
+        "bottleneck_value": 0.2,
+        "level_gain": 0.15,
+        "expected_benefit": 0.2,
+        "evidence_confidence": 0.15,
+        "readiness": 0.15,
+        "cost_burden": 0.1,
+        "implementation_risk": 0.05
+      },
+      "normalization": {
+        "method": "min-max",
+        "beneficial": [
+          "bottleneck_value",
+          "evidence_confidence",
+          "expected_benefit",
+          "level_gain",
+          "readiness"
+        ],
+        "cost_or_risk_reversed": [
+          "cost_burden",
+          "implementation_risk"
+        ]
+      },
+      "stability": {
+        "stable": true,
+        "agreement": 1.0,
+        "explanation": "三种情景下排序完全一致"
+      },
+      "disclaimer": "这是相对优先级分数，不是经过报价或财务核验的 ROI。"
+    },
+    "evidence_graph": {
+      "anchor": "root:PATH-009",
+      "node_count": 10,
+      "edge_count": 17,
+      "nodes": [
+        {
+          "id": "criterion:5",
+          "type": "criterion",
+          "label": "采集项 5",
+          "attributes": {
+            "item_id": 5
+          }
+        },
+        {
+          "id": "criterion:4",
+          "type": "criterion",
+          "label": "采集项 4",
+          "attributes": {
+            "item_id": 4
+          }
+        },
+        {
+          "id": "scenario:S05",
+          "type": "scenario",
+          "label": "S05",
+          "attributes": {
+            "scenario_id": "S05"
+          }
+        },
+        {
+          "id": "case:CASE-1136",
+          "type": "case",
+          "label": "电子电器——宁波泰利电器有限公司通过宁波市家电行业“N+X”数字化改造模块，实现自动排产和齐套管理",
+          "attributes": {
+            "case_id": "CASE-1136"
+          }
+        },
+        {
+          "id": "symptom:PATH-009",
+          "type": "symptom",
+          "label": "齐套率上不去，停线等料成了常态",
+          "attributes": {
+            "path_id": "PATH-009"
+          }
+        },
+        {
+          "id": "root:PATH-009",
+          "type": "root_cause",
+          "label": "排产只看交期不看物料齐套，采购到货与工单不同步，缺料要到上线才发现——要把齐套检查前置到排产环节",
+          "attributes": {
+            "path_id": "PATH-009"
+          }
+        },
+        {
+          "id": "scenario:S11",
+          "type": "scenario",
+          "label": "S11",
+          "attributes": {
+            "scenario_id": "S11"
+          }
+        },
+        {
+          "id": "action:PATH-009:1",
+          "type": "action",
+          "label": "排产前做物料齐套校验，缺料工单不投放",
+          "attributes": {
+            "path_id": "PATH-009"
+          }
+        },
+        {
+          "id": "action:PATH-009:2",
+          "type": "action",
+          "label": "采购到货与工单绑定，到料即触发齐套更新",
+          "attributes": {
+            "path_id": "PATH-009"
+          }
+        },
+        {
+          "id": "case:CASE-1158",
+          "type": "case",
+          "label": "装备制造——奇瑞汽车股份有限公司应用海行云LES物流拉动管理平台，推动与上游供应商高效协同",
+          "attributes": {
+            "case_id": "CASE-1158"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": "case:CASE-1136",
+          "target": "scenario:S05",
+          "relation": "covers",
+          "attributes": {}
+        },
+        {
+          "source": "symptom:PATH-009",
+          "target": "root:PATH-009",
+          "relation": "caused_by",
+          "attributes": {}
+        },
+        {
+          "source": "criterion:4",
+          "target": "symptom:PATH-009",
+          "relation": "indicates",
+          "attributes": {}
+        },
+        {
+          "source": "criterion:5",
+          "target": "symptom:PATH-009",
+          "relation": "indicates",
+          "attributes": {}
+        },
+        {
+          "source": "scenario:S05",
+          "target": "symptom:PATH-009",
+          "relation": "observed_as",
+          "attributes": {}
+        },
+        {
+          "source": "scenario:S11",
+          "target": "symptom:PATH-009",
+          "relation": "observed_as",
+          "attributes": {}
+        },
+        {
+          "source": "root:PATH-009",
+          "target": "action:PATH-009:1",
+          "relation": "addressed_by",
+          "attributes": {}
+        },
+        {
+          "source": "action:PATH-009:1",
+          "target": "scenario:S05",
+          "relation": "targets",
+          "attributes": {}
+        },
+        {
+          "source": "root:PATH-009",
+          "target": "action:PATH-009:2",
+          "relation": "addressed_by",
+          "attributes": {}
+        },
+        {
+          "source": "action:PATH-009:2",
+          "target": "scenario:S11",
+          "relation": "targets",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1136",
+          "target": "action:PATH-009:1",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1136",
+          "target": "action:PATH-009:2",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1136",
+          "target": "scenario:S11",
+          "relation": "covers",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1158",
+          "target": "action:PATH-009:1",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1158",
+          "target": "action:PATH-009:2",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1158",
+          "target": "scenario:S05",
+          "relation": "covers",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1158",
+          "target": "scenario:S11",
+          "relation": "covers",
+          "attributes": {}
+        }
+      ]
+    },
+    "deliberation": {
+      "requires_deliberation": true,
+      "round_count": 1,
+      "trigger_reasons": [
+        "证据不足"
+      ],
+      "role_outputs": {
+        "diagnosis": {
+          "recommendation": "排产前做物料齐套校验，缺料工单不投放（目标场景 S11「采购管理」）",
+          "rationale": "设备已购入但未联网，数据流在设备侧断掉",
+          "evidence_ids": []
+        },
+        "evidence": {
+          "complete": false,
+          "evidence_ids": [
+            "本项目构造的判据 AP1",
+            "采集项 2",
+            "采集项 3",
+            "场景 S08",
+            "案例 CASE-013",
+            "场景 S09",
+            "场景 S10",
+            "场景 S11",
+            "等级判定",
+            "采集项 4",
+            "采集项 11",
+            "采集项 7"
+          ],
+          "gaps": [
+            "成本仍为估算，缺少报价或审计依据",
+            "收益证据存在未充分支持项"
+          ]
+        },
+        "economics": {
+          "recommendation": "",
+          "ranking": [
+            "P-ENERGY",
+            "P-PLAN",
+            "P-NET",
+            "P-SEC"
+          ],
+          "stable": true,
+          "flip_rate": 0.0
+        },
+        "adjudicator": {
+          "recommendation": "暂缓裁决",
+          "proposed_recommendation": "排产前做物料齐套校验，缺料工单不投放（目标场景 S11「采购管理」）",
+          "status": "需要补证据"
+        }
+      },
+      "consensus": {
+        "status": "需要补证据",
+        "basis": [
+          "诊断输入",
+          "证据缺口",
+          "经济性排序"
+        ],
+        "proposed_recommendation": "排产前做物料齐套校验，缺料工单不投放（目标场景 S11「采购管理」）"
+      },
+      "disagreements": [
+        "evidence"
+      ],
+      "evidence_gaps": [
+        "成本仍为估算，缺少报价或审计依据",
+        "收益证据存在未充分支持项"
+      ],
+      "final_decision": {
+        "status": "需要补证据",
+        "recommendation": "暂缓裁决",
+        "proposed_recommendation": "排产前做物料齐套校验，缺料工单不投放（目标场景 S11「采购管理」）",
+        "ranking": [
+          "P-ENERGY",
+          "P-PLAN",
+          "P-NET",
+          "P-SEC"
+        ],
+        "evidence_complete": false,
+        "reasons": [
+          "证据不足"
+        ]
+      }
     }
   }
 }

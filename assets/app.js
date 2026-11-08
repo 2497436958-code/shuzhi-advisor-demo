@@ -820,6 +820,7 @@
     $("#output-panel").hidden = false;
 
     renderGauge(result);
+    renderAiVisibility(result);
     renderDiagnosis(result);
     renderPathway(result);
     renderRanking(result);
@@ -834,6 +835,39 @@
     });
 
     updateTitles(result);
+  }
+
+  function renderAiVisibility(result) {
+    const section = $("#sec-ai-technology");
+    const host = $("#out-ai-visibility");
+    const toc = $('.toc a[href="#sec-ai-technology"]');
+    if (!section || !host) return;
+    const summary = window.AdvisorAIVisibility && window.AdvisorAIVisibility.summarizeAiResult
+      ? window.AdvisorAIVisibility.summarizeAiResult(result)
+      : { visible: false };
+    section.hidden = !summary.visible;
+    if (toc) toc.hidden = !summary.visible;
+    host.textContent = "";
+    if (!summary.visible) return;
+
+    const priority = summary.priority || {};
+    const deliberation = summary.deliberation || {};
+    const cards = [
+      ["稳健优先级", priority.score || "—", priority.rank ? `基线首位：${priority.rank}` : "暂无基线排序", priority.stability || "—"],
+      ["证据图谱", summary.graph || "—", "症状、根因、动作与依据节点", "可沿关系回查"],
+      ["多角色协商", deliberation.status || "—", deliberation.reasons || "未触发额外复核", deliberation.recommendation ? `建议：${deliberation.recommendation}` : "—"],
+    ];
+    const grid = el("div", { class: "ai-visibility-grid" });
+    cards.forEach(([label, value, detail, note]) => {
+      grid.appendChild(el("article", { class: "ai-visibility-card" }, [
+        el("span", { class: "ai-visibility-label", text: label }),
+        el("strong", { class: "ai-visibility-value", text: value }),
+        el("span", { class: "ai-visibility-detail", text: detail }),
+        el("span", { class: "ai-visibility-note", text: note }),
+      ]));
+    });
+    host.appendChild(grid);
+    if (priority.explanation) host.appendChild(el("p", { class: "ai-visibility-footnote", text: priority.explanation }));
   }
 
   function updateTitles(result) {

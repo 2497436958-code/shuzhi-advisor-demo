@@ -1445,6 +1445,7 @@
           10,
           11
         ],
+        "level_gain": 1.0,
         "cost_range": [
           10.0,
           30.0
@@ -1551,6 +1552,7 @@
           3,
           4
         ],
+        "level_gain": 1.0,
         "cost_range": [
           30.0,
           90.0
@@ -1665,6 +1667,7 @@
           5,
           4
         ],
+        "level_gain": 1.0,
         "cost_range": [
           60.0,
           180.0
@@ -1770,6 +1773,7 @@
           4,
           5
         ],
+        "level_gain": 1.0,
         "cost_range": [
           40.0,
           120.0
@@ -1875,6 +1879,7 @@
           6,
           7
         ],
+        "level_gain": 1.0,
         "cost_range": [
           15.0,
           45.0
@@ -2349,7 +2354,369 @@
       "criteria_source": "工信厅企业〔2024〕56 号 附件（一）数字化基础、管理及成效评测表",
       "scenario_source": "工信厅企业〔2024〕56 号附件（二）",
       "document": "工信厅企业〔2024〕56 号",
-      "engine": "advisor.web.api / advisor.scoring.engine / advisor.scoring.roi / advisor.patterns.antipatterns"
+      "engine": "advisor.web.api / advisor.scoring.engine / advisor.scoring.roi / advisor.patterns.antipatterns / advisor.decision.extensions"
+    },
+    "robust_priority": {
+      "scenarios": {
+        "conservative": [
+          {
+            "id": "P-MES",
+            "score": 0.53375,
+            "rank": 1
+          },
+          {
+            "id": "P-QC",
+            "score": 0.5081906517,
+            "rank": 2
+          },
+          {
+            "id": "P-NET",
+            "score": 0.4447321567,
+            "rank": 3
+          },
+          {
+            "id": "P-PLAN",
+            "score": 0.3555071761,
+            "rank": 4
+          },
+          {
+            "id": "P-SEC",
+            "score": 0.32975,
+            "rank": 5
+          }
+        ],
+        "base": [
+          {
+            "id": "P-MES",
+            "score": 0.625,
+            "rank": 1
+          },
+          {
+            "id": "P-QC",
+            "score": 0.5829208689,
+            "rank": 2
+          },
+          {
+            "id": "P-NET",
+            "score": 0.4943095423,
+            "rank": 3
+          },
+          {
+            "id": "P-PLAN",
+            "score": 0.3973429015,
+            "rank": 4
+          },
+          {
+            "id": "P-SEC",
+            "score": 0.365,
+            "rank": 5
+          }
+        ],
+        "optimistic": [
+          {
+            "id": "P-MES",
+            "score": 0.685,
+            "rank": 1
+          },
+          {
+            "id": "P-QC",
+            "score": 0.6346089992,
+            "rank": 2
+          },
+          {
+            "id": "P-NET",
+            "score": 0.5317059736,
+            "rank": 3
+          },
+          {
+            "id": "P-PLAN",
+            "score": 0.4331943367,
+            "rank": 4
+          },
+          {
+            "id": "P-SEC",
+            "score": 0.3965,
+            "rank": 5
+          }
+        ]
+      },
+      "weights": {
+        "bottleneck_value": 0.2,
+        "level_gain": 0.15,
+        "expected_benefit": 0.2,
+        "evidence_confidence": 0.15,
+        "readiness": 0.15,
+        "cost_burden": 0.1,
+        "implementation_risk": 0.05
+      },
+      "normalization": {
+        "method": "min-max",
+        "beneficial": [
+          "bottleneck_value",
+          "evidence_confidence",
+          "expected_benefit",
+          "level_gain",
+          "readiness"
+        ],
+        "cost_or_risk_reversed": [
+          "cost_burden",
+          "implementation_risk"
+        ]
+      },
+      "stability": {
+        "stable": true,
+        "agreement": 1.0,
+        "explanation": "三种情景下排序完全一致"
+      },
+      "disclaimer": "这是相对优先级分数，不是经过报价或财务核验的 ROI。"
+    },
+    "evidence_graph": {
+      "anchor": "root:PATH-018",
+      "node_count": 9,
+      "edge_count": 14,
+      "nodes": [
+        {
+          "id": "criterion:4",
+          "type": "criterion",
+          "label": "采集项 4",
+          "attributes": {
+            "item_id": 4
+          }
+        },
+        {
+          "id": "symptom:PATH-018",
+          "type": "symptom",
+          "label": "能耗月底才抄表，超了也不知道超在哪一段",
+          "attributes": {
+            "path_id": "PATH-018"
+          }
+        },
+        {
+          "id": "root:PATH-018",
+          "type": "root_cause",
+          "label": "没有分项计量，能耗数据按月汇总，工序与设备级别的能耗看不见——要先做分项采集，才谈得上节能",
+          "attributes": {
+            "path_id": "PATH-018"
+          }
+        },
+        {
+          "id": "criterion:12",
+          "type": "criterion",
+          "label": "采集项 12",
+          "attributes": {
+            "item_id": 12
+          }
+        },
+        {
+          "id": "scenario:S10",
+          "type": "scenario",
+          "label": "S10",
+          "attributes": {
+            "scenario_id": "S10"
+          }
+        },
+        {
+          "id": "action:PATH-018:1",
+          "type": "action",
+          "label": "主要用能设备加装分项计量，数据自动上传",
+          "attributes": {
+            "path_id": "PATH-018"
+          }
+        },
+        {
+          "id": "action:PATH-018:2",
+          "type": "action",
+          "label": "按工序建能耗基线，异常自动预警",
+          "attributes": {
+            "path_id": "PATH-018"
+          }
+        },
+        {
+          "id": "case:CASE-003",
+          "type": "case",
+          "label": "湖南泰鑫瓷业有限公司通过IoT平台推动能耗精细化管理和数字化碳管理",
+          "attributes": {
+            "case_id": "CASE-003"
+          }
+        },
+        {
+          "id": "case:CASE-1142",
+          "type": "case",
+          "label": "非金属制品——山东统一陶瓷科技有限公司通过全自动陶瓷智能产线信息化集成应用，实现订单定制与库存最优化",
+          "attributes": {
+            "case_id": "CASE-1142"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": "symptom:PATH-018",
+          "target": "root:PATH-018",
+          "relation": "caused_by",
+          "attributes": {}
+        },
+        {
+          "source": "criterion:4",
+          "target": "symptom:PATH-018",
+          "relation": "indicates",
+          "attributes": {}
+        },
+        {
+          "source": "criterion:12",
+          "target": "symptom:PATH-018",
+          "relation": "indicates",
+          "attributes": {}
+        },
+        {
+          "source": "scenario:S10",
+          "target": "symptom:PATH-018",
+          "relation": "observed_as",
+          "attributes": {}
+        },
+        {
+          "source": "root:PATH-018",
+          "target": "action:PATH-018:1",
+          "relation": "addressed_by",
+          "attributes": {}
+        },
+        {
+          "source": "action:PATH-018:1",
+          "target": "scenario:S10",
+          "relation": "targets",
+          "attributes": {}
+        },
+        {
+          "source": "root:PATH-018",
+          "target": "action:PATH-018:2",
+          "relation": "addressed_by",
+          "attributes": {}
+        },
+        {
+          "source": "action:PATH-018:2",
+          "target": "scenario:S10",
+          "relation": "targets",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-003",
+          "target": "action:PATH-018:1",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-003",
+          "target": "action:PATH-018:2",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-003",
+          "target": "scenario:S10",
+          "relation": "covers",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1142",
+          "target": "action:PATH-018:1",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1142",
+          "target": "action:PATH-018:2",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1142",
+          "target": "scenario:S10",
+          "relation": "covers",
+          "attributes": {}
+        }
+      ]
+    },
+    "deliberation": {
+      "requires_deliberation": true,
+      "round_count": 1,
+      "trigger_reasons": [
+        "证据不足"
+      ],
+      "role_outputs": {
+        "diagnosis": {
+          "recommendation": "主要用能设备加装分项计量，数据自动上传（目标场景 S10「能耗管理」）",
+          "rationale": "信息系统铺开但关键业务流程没有真正跑通",
+          "evidence_ids": []
+        },
+        "evidence": {
+          "complete": false,
+          "evidence_ids": [
+            "本项目构造的判据 AP2",
+            "采集项 5",
+            "场景 S06",
+            "场景 S07",
+            "案例 CASE-021",
+            "场景 S08",
+            "场景 S09",
+            "等级判定",
+            "采集项 4",
+            "采集项 11",
+            "采集项 1"
+          ],
+          "gaps": [
+            "成本仍为估算，缺少报价或审计依据",
+            "收益证据存在未充分支持项"
+          ]
+        },
+        "economics": {
+          "recommendation": "",
+          "ranking": [
+            "P-MES",
+            "P-QC",
+            "P-NET",
+            "P-PLAN",
+            "P-SEC"
+          ],
+          "stable": true,
+          "flip_rate": 0.2
+        },
+        "adjudicator": {
+          "recommendation": "暂缓裁决",
+          "proposed_recommendation": "主要用能设备加装分项计量，数据自动上传（目标场景 S10「能耗管理」）",
+          "status": "需要补证据"
+        }
+      },
+      "consensus": {
+        "status": "需要补证据",
+        "basis": [
+          "诊断输入",
+          "证据缺口",
+          "经济性排序"
+        ],
+        "proposed_recommendation": "主要用能设备加装分项计量，数据自动上传（目标场景 S10「能耗管理」）"
+      },
+      "disagreements": [
+        "evidence"
+      ],
+      "evidence_gaps": [
+        "成本仍为估算，缺少报价或审计依据",
+        "收益证据存在未充分支持项"
+      ],
+      "final_decision": {
+        "status": "需要补证据",
+        "recommendation": "暂缓裁决",
+        "proposed_recommendation": "主要用能设备加装分项计量，数据自动上传（目标场景 S10「能耗管理」）",
+        "ranking": [
+          "P-MES",
+          "P-QC",
+          "P-NET",
+          "P-PLAN",
+          "P-SEC"
+        ],
+        "evidence_complete": false,
+        "reasons": [
+          "证据不足"
+        ]
+      }
     }
   }
 }

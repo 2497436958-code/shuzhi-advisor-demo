@@ -164,12 +164,23 @@
     <nav class="toc" aria-label="结果目录">
       <span class="toc-label">目录</span>
       <a href="#sec-diagnosis"><span class="n">一</span>诊断</a>
+      <a href="#sec-ai-technology" hidden><span class="n">AI</span>技术构造</a>
       <a href="#sec-pathway"><span class="n">二</span>改造路径</a>
       <a href="#sec-ranking"><span class="n">三</span>投入产出</a>
       <a href="#sec-policy"><span class="n">四</span>政策依据</a>
     </nav>
 
     <div class="result-body" id="output-panel">
+
+      <section class="out-section ai-visibility-section" id="sec-ai-technology" aria-labelledby="h-ai-technology" hidden>
+        <div class="out-head">
+          <span class="n">AI</span>
+          <h3 id="h-ai-technology">AI 技术构造</h3>
+          <span class="sub">只在结果提供时显示</span>
+        </div>
+        <p class="ai-visibility-intro">报告把稳健排序、证据关系和多角色协商结果作为可检查的中间产物展示，不把它们包装成不可复核的“智能结论”。</p>
+        <div id="out-ai-visibility"></div>
+      </section>
 
       <section class="out-section" id="sec-diagnosis" aria-labelledby="h-diagnosis">
         <div class="out-head">
@@ -233,6 +244,7 @@
 <script src="assets/engine.js?v=20261108"></script>
 <script src="assets/provenance.js?v=20261108"></script>
 <script src="assets/ai-card.js?v=20261108"></script>
+<script type="module" src="assets/ai-visibility.mjs?v=20261108"></script>
 <script src="assets/app.js?v=20261108"></script>
 </body>
 </html>

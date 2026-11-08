@@ -1497,6 +1497,7 @@
           3,
           4
         ],
+        "level_gain": 1.0,
         "cost_range": [
           30.0,
           90.0
@@ -1611,6 +1612,7 @@
           5,
           4
         ],
+        "level_gain": 1.0,
         "cost_range": [
           60.0,
           180.0
@@ -1716,6 +1718,7 @@
           4,
           5
         ],
+        "level_gain": 1.0,
         "cost_range": [
           40.0,
           120.0
@@ -1821,6 +1824,7 @@
           4,
           8
         ],
+        "level_gain": 1.0,
         "cost_range": [
           30.0,
           90.0
@@ -1925,6 +1929,7 @@
         "target_items": [
           4
         ],
+        "level_gain": 1.0,
         "cost_range": [
           20.0,
           60.0
@@ -2021,6 +2026,7 @@
           6,
           7
         ],
+        "level_gain": 1.0,
         "cost_range": [
           15.0,
           45.0
@@ -2522,7 +2528,430 @@
       "criteria_source": "工信厅企业〔2024〕56 号 附件（一）数字化基础、管理及成效评测表",
       "scenario_source": "工信厅企业〔2024〕56 号附件（二）",
       "document": "工信厅企业〔2024〕56 号",
-      "engine": "advisor.web.api / advisor.scoring.engine / advisor.scoring.roi / advisor.patterns.antipatterns"
+      "engine": "advisor.web.api / advisor.scoring.engine / advisor.scoring.roi / advisor.patterns.antipatterns / advisor.decision.extensions"
+    },
+    "robust_priority": {
+      "scenarios": {
+        "conservative": [
+          {
+            "id": "P-ANA",
+            "score": 0.52625,
+            "rank": 1
+          },
+          {
+            "id": "P-ENERGY",
+            "score": 0.4901875,
+            "rank": 2
+          },
+          {
+            "id": "P-QC",
+            "score": 0.40375,
+            "rank": 3
+          },
+          {
+            "id": "P-MES",
+            "score": 0.3968125,
+            "rank": 4
+          },
+          {
+            "id": "P-NET",
+            "score": 0.38,
+            "rank": 5
+          },
+          {
+            "id": "P-SEC",
+            "score": 0.33875,
+            "rank": 6
+          }
+        ],
+        "base": [
+          {
+            "id": "P-ANA",
+            "score": 0.6166666667,
+            "rank": 1
+          },
+          {
+            "id": "P-ENERGY",
+            "score": 0.5491388889,
+            "rank": 2
+          },
+          {
+            "id": "P-QC",
+            "score": 0.4577777778,
+            "rank": 3
+          },
+          {
+            "id": "P-MES",
+            "score": 0.4574166667,
+            "rank": 4
+          },
+          {
+            "id": "P-NET",
+            "score": 0.4216666667,
+            "rank": 5
+          },
+          {
+            "id": "P-SEC",
+            "score": 0.375,
+            "rank": 6
+          }
+        ],
+        "optimistic": [
+          {
+            "id": "P-ANA",
+            "score": 0.6795833333,
+            "rank": 1
+          },
+          {
+            "id": "P-ENERGY",
+            "score": 0.5933152778,
+            "rank": 2
+          },
+          {
+            "id": "P-MES",
+            "score": 0.4997791667,
+            "rank": 3
+          },
+          {
+            "id": "P-QC",
+            "score": 0.4979722222,
+            "rank": 4
+          },
+          {
+            "id": "P-NET",
+            "score": 0.4553333333,
+            "rank": 5
+          },
+          {
+            "id": "P-SEC",
+            "score": 0.4075,
+            "rank": 6
+          }
+        ]
+      },
+      "weights": {
+        "bottleneck_value": 0.2,
+        "level_gain": 0.15,
+        "expected_benefit": 0.2,
+        "evidence_confidence": 0.15,
+        "readiness": 0.15,
+        "cost_burden": 0.1,
+        "implementation_risk": 0.05
+      },
+      "normalization": {
+        "method": "min-max",
+        "beneficial": [
+          "bottleneck_value",
+          "evidence_confidence",
+          "expected_benefit",
+          "level_gain",
+          "readiness"
+        ],
+        "cost_or_risk_reversed": [
+          "cost_burden",
+          "implementation_risk"
+        ]
+      },
+      "stability": {
+        "stable": false,
+        "agreement": 0.977778,
+        "explanation": "情景间存在排序变化，应补充证据或开展人工审查"
+      },
+      "disclaimer": "这是相对优先级分数，不是经过报价或财务核验的 ROI。"
+    },
+    "evidence_graph": {
+      "anchor": "root:PATH-006",
+      "node_count": 11,
+      "edge_count": 18,
+      "nodes": [
+        {
+          "id": "criterion:5",
+          "type": "criterion",
+          "label": "采集项 5",
+          "attributes": {
+            "item_id": 5
+          }
+        },
+        {
+          "id": "criterion:4",
+          "type": "criterion",
+          "label": "采集项 4",
+          "attributes": {
+            "item_id": 4
+          }
+        },
+        {
+          "id": "criterion:3",
+          "type": "criterion",
+          "label": "采集项 3",
+          "attributes": {
+            "item_id": 3
+          }
+        },
+        {
+          "id": "symptom:PATH-006",
+          "type": "symptom",
+          "label": "设备卖出去就失联，客户报修只能等师傅上门看",
+          "attributes": {
+            "path_id": "PATH-006"
+          }
+        },
+        {
+          "id": "root:PATH-006",
+          "type": "root_cause",
+          "label": "设备没有联网、没有运行数据回传，售后只能靠电话描述故障，备件靠猜——要先把设备状态采上来，才谈得上远程运维",
+          "attributes": {
+            "path_id": "PATH-006"
+          }
+        },
+        {
+          "id": "scenario:S04",
+          "type": "scenario",
+          "label": "S04",
+          "attributes": {
+            "scenario_id": "S04"
+          }
+        },
+        {
+          "id": "scenario:S08",
+          "type": "scenario",
+          "label": "S08",
+          "attributes": {
+            "scenario_id": "S08"
+          }
+        },
+        {
+          "id": "action:PATH-006:1",
+          "type": "action",
+          "label": "出厂设备加装采集网关，运行状态回传",
+          "attributes": {
+            "path_id": "PATH-006"
+          }
+        },
+        {
+          "id": "action:PATH-006:2",
+          "type": "action",
+          "label": "建远程运维平台与备件台账",
+          "attributes": {
+            "path_id": "PATH-006"
+          }
+        },
+        {
+          "id": "case:CASE-1117",
+          "type": "case",
+          "label": "装备制造——河南省四通锅炉有限公司通过远程运维工业互联网平台实现锅炉远程智能化运维",
+          "attributes": {
+            "case_id": "CASE-1117"
+          }
+        },
+        {
+          "id": "case:CASE-1175",
+          "type": "case",
+          "label": "电子电器——杭州海康威视数字技术股份有限公司通过云眸企业平台，推动电子制造行业中小企业实现“链式”协同转型",
+          "attributes": {
+            "case_id": "CASE-1175"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": "symptom:PATH-006",
+          "target": "root:PATH-006",
+          "relation": "caused_by",
+          "attributes": {}
+        },
+        {
+          "source": "criterion:3",
+          "target": "symptom:PATH-006",
+          "relation": "indicates",
+          "attributes": {}
+        },
+        {
+          "source": "criterion:4",
+          "target": "symptom:PATH-006",
+          "relation": "indicates",
+          "attributes": {}
+        },
+        {
+          "source": "criterion:5",
+          "target": "symptom:PATH-006",
+          "relation": "indicates",
+          "attributes": {}
+        },
+        {
+          "source": "scenario:S04",
+          "target": "symptom:PATH-006",
+          "relation": "observed_as",
+          "attributes": {}
+        },
+        {
+          "source": "scenario:S08",
+          "target": "symptom:PATH-006",
+          "relation": "observed_as",
+          "attributes": {}
+        },
+        {
+          "source": "root:PATH-006",
+          "target": "action:PATH-006:1",
+          "relation": "addressed_by",
+          "attributes": {}
+        },
+        {
+          "source": "action:PATH-006:1",
+          "target": "scenario:S04",
+          "relation": "targets",
+          "attributes": {}
+        },
+        {
+          "source": "root:PATH-006",
+          "target": "action:PATH-006:2",
+          "relation": "addressed_by",
+          "attributes": {}
+        },
+        {
+          "source": "action:PATH-006:2",
+          "target": "scenario:S04",
+          "relation": "targets",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1117",
+          "target": "action:PATH-006:1",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1117",
+          "target": "action:PATH-006:2",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1117",
+          "target": "scenario:S04",
+          "relation": "covers",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1117",
+          "target": "scenario:S08",
+          "relation": "covers",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1175",
+          "target": "action:PATH-006:1",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1175",
+          "target": "action:PATH-006:2",
+          "relation": "illustrates",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1175",
+          "target": "scenario:S04",
+          "relation": "covers",
+          "attributes": {}
+        },
+        {
+          "source": "case:CASE-1175",
+          "target": "scenario:S08",
+          "relation": "covers",
+          "attributes": {}
+        }
+      ]
+    },
+    "deliberation": {
+      "requires_deliberation": true,
+      "round_count": 1,
+      "trigger_reasons": [
+        "证据不足",
+        "排序不稳定"
+      ],
+      "role_outputs": {
+        "diagnosis": {
+          "recommendation": "出厂设备加装采集网关，运行状态回传（目标场景 S08「设备管理」）",
+          "rationale": "数据已经自动采集，但没有形成分析决策闭环",
+          "evidence_ids": []
+        },
+        "evidence": {
+          "complete": false,
+          "evidence_ids": [
+            "本项目构造的判据 AP3",
+            "采集项 4",
+            "场景 S16",
+            "案例 CASE-184",
+            "场景 S08",
+            "场景 S09",
+            "场景 S10",
+            "场景 S11",
+            "等级判定",
+            "采集项 11",
+            "采集项 5"
+          ],
+          "gaps": [
+            "成本仍为估算，缺少报价或审计依据",
+            "收益证据存在未充分支持项"
+          ]
+        },
+        "economics": {
+          "recommendation": "",
+          "ranking": [
+            "P-ANA",
+            "P-ENERGY",
+            "P-QC",
+            "P-MES",
+            "P-NET",
+            "P-SEC"
+          ],
+          "stable": false,
+          "flip_rate": 0.333
+        },
+        "adjudicator": {
+          "recommendation": "暂缓裁决",
+          "proposed_recommendation": "出厂设备加装采集网关，运行状态回传（目标场景 S08「设备管理」）",
+          "status": "需要补证据"
+        }
+      },
+      "consensus": {
+        "status": "需要补证据",
+        "basis": [
+          "诊断输入",
+          "证据缺口",
+          "经济性排序",
+          "排序稳定性待复核"
+        ],
+        "proposed_recommendation": "出厂设备加装采集网关，运行状态回传（目标场景 S08「设备管理」）"
+      },
+      "disagreements": [
+        "evidence",
+        "economics"
+      ],
+      "evidence_gaps": [
+        "成本仍为估算，缺少报价或审计依据",
+        "收益证据存在未充分支持项"
+      ],
+      "final_decision": {
+        "status": "需要补证据",
+        "recommendation": "暂缓裁决",
+        "proposed_recommendation": "出厂设备加装采集网关，运行状态回传（目标场景 S08「设备管理」）",
+        "ranking": [
+          "P-ANA",
+          "P-ENERGY",
+          "P-QC",
+          "P-MES",
+          "P-NET",
+          "P-SEC"
+        ],
+        "evidence_complete": false,
+        "reasons": [
+          "证据不足",
+          "排序不稳定"
+        ]
+      }
     }
   }
 }

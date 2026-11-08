@@ -44,6 +44,11 @@ for (const f of readdirSync(join(SITE, 'data', 'samples'))) {
 let html = read('index.html').replace(/\r\n/g, '\n');
 // 资源带 ?v=... 缓存版本号时，先归一化，后续标签匹配与内联都按无参路径处理
 html = html.replace(/((?:href|src)="assets\/[^"?]+)\?v=[^"]*"/g, '$1"');
+// 单文件离线版不携带子页，避免生成无法打开的相对链接。
+html = html
+  .replace(/href="highlights\.html"/g, 'href="#advisor"')
+  .replace(/href="report\.html(?:\?[^"]*)?"/g, 'href="#advisor"')
+  .replace(/href="ask\.html"/g, 'href="#advisor"');
 
 const cssHrefs = [...html.matchAll(/<link rel="stylesheet" href="([^"]+)">/g)].map((m) => m[1]);
 const jsSrcs = [...html.matchAll(/<script src="([^"]+)"><\/script>/g)].map((m) => m[1]);
